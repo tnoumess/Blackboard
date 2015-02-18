@@ -1,0 +1,77 @@
+﻿
+@model Blackboard.Models.Register
+@using System.Web.WebPages.Html
+@using SelectListItem=System.Web.WebPages.Html.SelectListItem
+@using System.Linq
+@using System.Data.Entity
+ 
+@{
+    ViewBag.Title = "Register";
+  //  var selectList = new SelectList(Model);
+
+    var roles = new List<SelectListItem>(){        
+        new SelectListItem(){
+            Text="Administrator",
+            Value="Administrator"
+        },
+        new SelectListItem(){
+            Text="Student",
+            Value="Student"
+        },
+        new SelectListItem(){
+            Text="Instructor",
+            Value="Instructor"
+        }
+        
+    };
+}
+
+<h2>Register</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Role, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+               
+                <select name="Role" >
+                    <option value="Administrator">Administrator</option>
+                    <option value="Student">Student</option>
+                    <option value="Instructor">Instructor</option>
+                 </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
