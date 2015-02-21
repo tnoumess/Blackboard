@@ -8,13 +8,13 @@ namespace Blackboard.Controllers
 {
     public class HomeController : Controller
     {
-        [Authorize(Roles = "Student,Administrator")]
+        [Authorize(Roles = "Student")]
         public ActionResult Index()
         {
             return View();
         }
 
-        [Authorize(Roles = "Instructor,Administrator")]
+        [Authorize(Roles = "Instructor")]
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
@@ -29,5 +29,14 @@ namespace Blackboard.Controllers
 
             return View();
         }
+
+        [Authorize(Roles = "Student")]
+        public ActionResult StudentForm()
+        {
+            ViewBag.Message = "Student Information Form.";
+
+            return View();
+        }
+
     }
 }

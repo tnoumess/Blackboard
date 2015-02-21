@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Blackboard.Models.Major>
+
+<br /><br />
+<div><h4> Index</h4></div>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Department.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Department.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.MajorID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.MajorID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.MajorID })
+        </td>
+    </tr>
+}
+
+</table>

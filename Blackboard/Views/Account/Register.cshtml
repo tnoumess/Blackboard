@@ -6,7 +6,7 @@
 @using System.Data.Entity
  
 @{
-    ViewBag.Title = "Register";
+   
   //  var selectList = new SelectList(Model);
 
     var roles = new List<SelectListItem>(){        
@@ -26,14 +26,14 @@
     };
 }
 
-<h2>Register</h2>
 
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        
+        <br /><br />
+        <div><h4> Register</h4></div>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">

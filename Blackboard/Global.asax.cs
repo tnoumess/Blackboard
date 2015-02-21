@@ -6,6 +6,10 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using WebMatrix.WebData;
+using Blackboard.Models;
+using System.Data.Entity;
+using MVC1.Models;
+
 
 namespace Blackboard
 {
@@ -13,6 +17,8 @@ namespace Blackboard
     {
         protected void Application_Start()
         {
+            Database.SetInitializer<CollegeContext>(new CollegeInitializer());
+            Console.Out.WriteLine(this);
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

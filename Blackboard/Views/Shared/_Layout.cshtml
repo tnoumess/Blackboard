@@ -16,35 +16,58 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                 @{
+                      if (Roles.GetRolesForUser().Length > 0 && Roles.GetRolesForUser()[0].Equals("Student"))
+                    {
+                        <li><strong><span style="color:blue"><h4>Student Console</h4></span></strong></li>  
+                    }
+                    if (Roles.GetRolesForUser().Length > 0 && Roles.GetRolesForUser()[0].Equals("Instructor"))
+                    {
+                        <li><strong><span style="color:blue"><h4>Instructor Console</h4></span></strong></li>  
+                    }
+                    if (Roles.GetRolesForUser().Length > 0 && Roles.GetRolesForUser()[0].Equals("Administrator"))
+                    {
+                        <li><strong><span style="color:blue"><h4>Admistrator Console</h4></span></strong></li>  
+                    }
+                 }
+              <!--  @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })-->
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                    @{
                        if (Roles.GetRolesForUser().Length > 0 && Roles.GetRolesForUser()[0].Equals("Student"))
                        { 
-                    <li>@Html.ActionLink("Student Home", "Index", "Home")</li>
+                       <li>@Html.ActionLink("Personal Information", "Create", "Students")</li>
+                    <!--   <li>@Html.ActionLink("Update Personal Info", "Edit", "Students")</li>-->
+                       <li>@Html.ActionLink("Register for Classes", "Index", "Home")</li>
+                       <li>@Html.ActionLink("Drop Classes", "Index", "Home")</li>                     
+                       <li>@Html.ActionLink("Update Password", "Index", "Home")</li>
                        } if (Roles.GetRolesForUser().Length > 0 && Roles.GetRolesForUser()[0].Equals("Instructor"))
                        {
-                    <li>@Html.ActionLink("About Instructor", "About", "Home")</li>
+                    <li>@Html.ActionLink("Create Instructor", "Create", "Instructors")</li>
                        } if (Roles.GetRolesForUser().Length > 0 && Roles.GetRolesForUser()[0].Equals("Administrator"))
                        {
-                    <li>@Html.ActionLink("Student Home", "Index", "Home")</li>
-                       <li>@Html.ActionLink("About Instructor", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact Administrator", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Create Department", "Create", "Departments")</li>
+                    <li>@Html.ActionLink("Create Major", "Create", "Majors")</li>
+                    <li>@Html.ActionLink("Create Course", "Create", "Courses")</li>
                     <li>@Html.ActionLink("Register", "Register", "Account")</li>
-                   }
-                   
-                        if(User.Identity.IsAuthenticated)
-                        { 
+                       }
+
+                       if (User.Identity.IsAuthenticated)
+                       {
+                       
                             <li>@Html.ActionLink("Logout", "Logout", "Account")</li>
-                        <li></li>
-                        <li><strong><span style="color:red"> @User.Identity.Name</span></strong></li>
-                        if(Roles.GetRolesForUser().Length>0)
-                        {
-                         <li><strong><span style="color:blue">@Roles.GetRolesForUser()[0]</span></strong></li>
-                        }
-                        else { 
+                            <li></li>
+                            <li><strong><span style="color:red"> @User.Identity.Name</span></strong></li>
+                            <li><strong><span style="color:blue">@Roles.GetRolesForUser()[0]</span></strong></li>
+                       
+                           if (Roles.GetRolesForUser().Length > 0)
+                           {
+
+                           }
+
+                           else
+                           {
                         <li>@Html.ActionLink("Login", "Login", "Account")</li>
                          <li>@Html.ActionLink("Register", "Register", "Account")</li>
                        

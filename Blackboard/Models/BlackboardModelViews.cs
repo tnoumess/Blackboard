@@ -23,32 +23,39 @@ namespace Blackboard.Models
     public class Student
     {
         [Display(Name = "StudentID")]
+        [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         [RegularExpression(@"^[G]{1}[0-9]{6}$", ErrorMessage = "Bad pattern! Try G followed by 6 digit. ")]
         // [Key]
         public String StudentID { get; set; }
-
+        
+        [Required]
         [Display(Name = "Last Name")]
         [RegularExpression(@"^[A-Z][-'a-zA-Z]{2,15}$", ErrorMessage = "Bad pattern! Alphabetic only and between 2 and 15 characters.")]
         public string LastName { get; set; }
 
+        [Required]
         [Display(Name = "First Name")]
         [RegularExpression(@"^[A-Z][-'a-zA-Z]{2,15}$", ErrorMessage = "Bad pattern! Alphabetic only and between 2 and 15 characters.")]
         public string FirstName { get; set; }
-
+        
+        [Required]
         [Display(Name = "Date of Birth")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:MM/dd/yy}", ApplyFormatInEditMode = true)]
         public DateTime DateofBirth { get; set; }
 
+        [Required]
         [Display(Name = "Major ID")]
         [RegularExpression(@"^[A-Z]{2,5}$", ErrorMessage = "Bad pattern! Please contact administrator.")]
         public String MajorID { get; set; }
 
+        [Required]
         [Display(Name = "Email")]
         [RegularExpression(@"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}", ErrorMessage = "Invalid email address format.")]
         public String Email { get; set; }
 
+       
         [Display(Name = "Full Name")]
         public string FullName
         {
@@ -59,35 +66,45 @@ namespace Blackboard.Models
         }
 
        // public virtual ICollection<Enrollment> Enrollments { get; set; }
-       // public virtual Major Majors { get; set; }
+        public virtual Major Majors { get; set; }
     }
 
 
     //[Table("Instructor")]
     public class Instructor
     {
+        [Required]
         [Display(Name = "Instructor ID")]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         [RegularExpression(@"^[G]{1}[0-9]{6}$", ErrorMessage = "Bad pattern! Try G followed by 6 digits.")]
         //  [Key]
         public String InstructorID { get; set; }
 
+        [Required]
         [Display(Name = "Last Name")]
         [RegularExpression(@"^[A-Z][-'a-zA-Z]{2,15}$", ErrorMessage = "Bad pattern! Alphabetic only and between 2 and 15 characters.")]
         public string LastName { get; set; }
 
-        [Display(Name = "Last Name")]
+        [Display(Name = "First Name")]
+        [Required]
         [RegularExpression(@"^[A-Z][-'a-zA-Z]{2,15}$", ErrorMessage = "Bad pattern! Alphabetic only and between 2 and 15 characters.")]
         public string FirstName { get; set; }
 
+        [Required]
         [Display(Name = "Date of Birth")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:MM/dd/yy}", ApplyFormatInEditMode = true)]
         public DateTime DateofBirth { get; set; }
 
+        [Required]
         [Display(Name = "Email")]
         [RegularExpression(@"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}", ErrorMessage = "Invalid email address format.")]
         public String Email { get; set; }
+
+        [Required]
+        [Display(Name = "Department")]
+        [RegularExpression(@"^[A-Z]{2,5}$", ErrorMessage = "Bad pattern! Try [2 -5] Caracters UPPER Case.")]
+        public String DepartmentID { get; set; }
 
         [Display(Name = "Full Name")]
         public string FullName
@@ -99,25 +116,29 @@ namespace Blackboard.Models
         }
 
         public virtual Department Department { get; set; }
-        public virtual ICollection<Department> Departments { get; set; }
+       // public virtual ICollection<Department> Departments { get; set; }
     }
     // [Table("Course")]
     public class Course
     {
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         [Display(Name = "Course ID")]
+        [Required]
         [RegularExpression(@"^[A-Z]{2,5}[0-9]{3}$", ErrorMessage = "Bad pattern! 2 to 5 upper Char followed by 3 digits.")]
         // [Key]
         public String CourseID { get; set; }
 
+        [Required]
         [Display(Name = "Course Name")]
         [RegularExpression(@"^[\w]{1}[-'\s\w]{2,30}$", ErrorMessage = "Bad pattern! Character between 2 and 30.  char, - and ' allowed only")]
         public String Name { get; set; }
 
+        [Required]
         [Display(Name = "Course Description")]
         [RegularExpression(@"^[\w]{1}[-'\s\w]{2,100}$", ErrorMessage = "Bad pattern! Alphabetic only and between 2 and 50 characters.")]
         public String Description { get; set; }
 
+        [Required]
         [Display(Name = "Department")]
         [RegularExpression(@"^[A-Z]{2,5}$", ErrorMessage = "Bad pattern! Try [2 -5] Caracters UPPER Case.")]
         public String DepartmentID { get; set; }
@@ -127,8 +148,8 @@ namespace Blackboard.Models
         public int Credit { get; set; }
 
         public virtual Department Department { get; set; }
-        public virtual ICollection<Enrollment> Enrollments { get; set; }
-        public virtual ICollection<Instructor> Instructors { get; set; }
+       // public virtual ICollection<Enrollment> Enrollments { get; set; }
+       //public virtual ICollection<Instructor> Instructors { get; set; }
 
     }
 
@@ -151,18 +172,22 @@ namespace Blackboard.Models
     {
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         [Display(Name = "Department ID")]
+        [Required]
         [RegularExpression(@"^[A-Z]{2,5}$", ErrorMessage = "Bad pattern! 2 to 5 upper Char.")]
         //  [Key]
         public String DepartmentID { get; set; }
 
         [Display(Name = "Department Name")]
+        [Required]
         [RegularExpression(@"^[\w]{1}[-'\s\w]{2,30}$", ErrorMessage = "Bad pattern! Character between 2 and 15.  char, - and ' allowed only")]
         public String Name { get; set; }
+        /*
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [RegularExpression(@"^[G]{1}[0-9]{6}$", ErrorMessage = "Bad pattern! Try G followed by 6 digits.")]
+        public String InstructorID { get; set; }*/
 
-        public String InstructorID { get; set; }
-
-        public virtual Instructor Administrator { get; set; }
-        public virtual ICollection<Major> Majors { get; set; }
+       // public virtual Instructor Instructor { get; set; }
+       // public virtual ICollection<Major> Majors { get; set; }
 
     }
     //  [Table("Major")]
@@ -170,14 +195,24 @@ namespace Blackboard.Models
     {
         //     [Key]
         [Display(Name = "Major ID")]
+        [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         [RegularExpression(@"^[A-Z]{2,5}$", ErrorMessage = "Bad pattern! Pattern SWE, CS, ISA, IT ...")]
         public String MajorID { get; set; }
 
+        [Required]
         [Display(Name = "Major Name")]
         [RegularExpression(@"^[\w]{1}[-'\s\w]{2,40}$", ErrorMessage = "Bad pattern! Character between 2 and 15.  char, - and ' allowed only")]
         public String Name { get; set; }
-        public virtual ICollection<Course> Listcourses { get; set; }
+
+        [Required]
+        [Display(Name = "Department ID")]
+        [RegularExpression(@"^[A-Z]{2,5}$", ErrorMessage = "Bad pattern! 2 to 5 upper Char.")]
+        //  [Key]
+        public String DepartmentID { get; set; }
+
+       // public virtual ICollection<Course> Listcourses { get; set; }
+        public virtual Department Department { get; set; }
     }
 
     //  [Table("User")]
@@ -194,10 +229,7 @@ namespace Blackboard.Models
     public class Login
     {
 
-        //  [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        //  [Key]
-      //  public String ID;
-      //  [Required]
+      
         [Display(Name = "Email")]
         [Required]
         [RegularExpression(@"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}", ErrorMessage = "Invalid email address format.")]
@@ -207,7 +239,7 @@ namespace Blackboard.Models
         [Display(Name = "Password")]
         [DataType(DataType.Password)]
         public String Password{get;set;}
-      //  public Role? Role { get; set; }
+      
     }
 
 
@@ -219,15 +251,13 @@ namespace Blackboard.Models
         //  public String ID;
         [Display(Name = "Email")]
         [Required]
-       // [EmailAddress]
-       [RegularExpression(@"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}", ErrorMessage = "Invalid email address format.")]
+        [RegularExpression(@"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}", ErrorMessage = "Invalid email address format.")]
         public String Username { get; set; }
 
         [Required]
         [Display(Name = "Password")]
         [DataType(DataType.Password)]
-        public String Password { get; set; }
-        //  public Role? Role { get; set; }
+        public String Password { get; set; }       
         [Display(Name = "Role")]
         [Required]
         public string Role { get; set; }
