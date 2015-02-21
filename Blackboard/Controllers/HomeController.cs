@@ -8,7 +8,7 @@ namespace Blackboard.Controllers
 {
     public class HomeController : Controller
     {
-        [Authorize(Roles = "Student")]
+        [Authorize(Roles = "Student,Instructor,Administrator")]
         public ActionResult Index()
         {
             return View();

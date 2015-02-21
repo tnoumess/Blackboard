@@ -11,6 +11,8 @@ namespace MVC1.Models
 {
     public class CollegeInitializer : DropCreateDatabaseIfModelChanges<CollegeContext>
     {
+
+       
         protected override void Seed(CollegeContext context)
         {
             Console.Out.WriteLine(this);

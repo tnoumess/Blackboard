@@ -32,7 +32,7 @@ namespace Blackboard.Controllers
                     }
                     else
                     {
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Contact", "Home");
                     }
                 }
                 else {
@@ -84,7 +84,7 @@ namespace Blackboard.Controllers
         public ActionResult Logout() {
 
             WebSecurity.Logout();
-            return RedirectToAction("Login", "Account");
+            return RedirectToAction("index", "Home");
         }
     }
 }

@@ -56,21 +56,19 @@
                        if (User.Identity.IsAuthenticated)
                        {
                        
-                            <li>@Html.ActionLink("Logout", "Logout", "Account")</li>
-                            <li></li>
-                            <li><strong><span style="color:red"> @User.Identity.Name</span></strong></li>
+                            <li>><span >@Html.ActionLink("Logout", "Logout", "Account")</span></li>
+                           <!--
+                            <li><strong><span style="color:red">@User.Identity.Name</span></strong></li>
                             <li><strong><span style="color:blue">@Roles.GetRolesForUser()[0]</span></strong></li>
-                       
+                           -->
                            if (Roles.GetRolesForUser().Length > 0)
                            {
 
                            }
-
                            else
                            {
                         <li>@Html.ActionLink("Login", "Login", "Account")</li>
-                         <li>@Html.ActionLink("Register", "Register", "Account")</li>
-                       
+                        <!-- <li>@Html.ActionLink("Register", "Register", "Account")</li>-->                       
                         }
                     }
                     

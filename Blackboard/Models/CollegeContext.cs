@@ -16,7 +16,7 @@ namespace Blackboard.Models
 
         }
 
-
+       
         public DbSet<Major> Majors { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Course> Courses { get; set; }

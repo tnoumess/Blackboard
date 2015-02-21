@@ -6,7 +6,7 @@
     
     <div class="form-horizontal">
         <br /><br />
-        <div><h4> Create Student</h4></div>
+        <div><h4>@ViewBag.test Create Student</h4></div>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -52,7 +52,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextBoxFor(model => model.Email, new { @Value = @User.Identity.Name, @readonly = "readonly" })
                 @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
             </div>
         </div>

@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Blackboard.Models;
+using WebMatrix.WebData;
 
 namespace Blackboard.Controllers
 {
@@ -20,7 +21,7 @@ namespace Blackboard.Controllers
         public ActionResult Index()
         {
             var students = db.Students.Include(s => s.Majors);
-            return View(students.ToList());
+            return View(students.Where(s=>s.Email==WebSecurity.CurrentUserName));
         }
 
         // GET: Students/Details/5
@@ -45,7 +46,19 @@ namespace Blackboard.Controllers
         [Authorize(Roles = "Student")]
         public ActionResult Create()
         {
+         
             ViewBag.MajorID = new SelectList(db.Majors, "MajorID", "Name");
+            ViewBag.EmailID = new SelectList(db.Students, "Email","StudentID");
+           
+            foreach (var student in ViewBag.EmailID)
+                {
+                             if (student.Value == WebSecurity.CurrentUserName)
+                        {                           
+                            ViewBag.test = student.Value.ToString();
+                           return RedirectToAction("Index");
+                        }                        
+                }          
+                  
             return View();
         }
 
@@ -59,9 +72,17 @@ namespace Blackboard.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Students.Add(student);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    db.Students.Add(student);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                catch (Exception e)
+                {
+                    ModelState.AddModelError("", "duplicate");
+                    return View();
+                }
             }
 
             ViewBag.MajorID = new SelectList(db.Majors, "MajorID", "Name", student.MajorID);
@@ -71,9 +92,9 @@ namespace Blackboard.Controllers
         // GET: Students/Edit/5
         [HttpGet]
         [Authorize(Roles = "Student")]
-        [Authorize(Roles = "Student")]
-        public ActionResult Edit(string id)
+        public ActionResult Edit(String id)
         {
+                      
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -107,7 +128,7 @@ namespace Blackboard.Controllers
 
         // GET: Students/Delete/5
         [HttpGet]
-        [Authorize(Roles = "Student")]
+        [Authorize(Roles = "Administator")]
         public ActionResult Delete(string id)
         {
             if (id == null)
@@ -125,7 +146,7 @@ namespace Blackboard.Controllers
         // POST: Students/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Student")]
+        [Authorize(Roles = "Administrator")]
         public ActionResult DeleteConfirmed(string id)
         {
             Student student = db.Students.Find(id);
